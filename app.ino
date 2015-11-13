@@ -2,20 +2,20 @@
 #include "Adafruit_CAP1188.h"
 
 // This #include statement was automatically added by the Particle IDE.
-#include "adafruit-led-backpack.h"
-Adafruit_8x8matrix matrix = Adafruit_8x8matrix();
-Adafruit_CAP1188 cap = Adafruit_CAP1188(D4);
+/*#include "adafruit-led-backpack.h"*/
+/*Adafruit_8x8matrix matrix = Adafruit_8x8matrix();*/
+Adafruit_CAP1188 cap = Adafruit_CAP1188();
 
 void setup() {
   Serial.begin(19200);
 
-  matrix.begin(0x70);  // pass in the address
+  /*matrix.begin(0x70);  // pass in the address*/
 
-  cap.begin(0x28);
+  cap.begin();
 
 }
 
-static const uint8_t
+/*static const uint8_t
   smile_bmp[] =
   { B00111100,
     B01000010,
@@ -42,28 +42,45 @@ static const uint8_t
     B10011001,
     B10100101,
     B01000010,
-    B00111100 };
+    B00111100 };*/
 
 void loop() {
 
-
   uint8_t touched = cap.touched();
+  /*byte offset = 0;*/
+  uint8_t analogFirst = cap.touchedAnalog(0);
+  uint8_t analogLast = cap.touchedAnalog(7);
+  /*Serial.print("1 = ");*/
+  /*Serial.println(analogFirst);*/
+  uint8_t analogLastModulo = analogLast % 128;
+  uint8_t analogFirstModulo = analogFirst % 128;
+  Serial.print("Anlog1Modulo = ");
+  Serial.println(analogFirstModulo);
+  Serial.print("Analog1 = ");
+  Serial.println(analogFirst);
+
 
   for (uint8_t i=0; i<8; i++) {
     if (touched & (1 << i)) {
-      Serial.print("C"); Serial.print(i+1); Serial.print("\t");
+      /*Serial.print("C"); Serial.print(i+1); Serial.print("\t");*/
     }
   }
 
+  /*for (uint8_t i =0; i < 8; i++){*/
+    /*if(analogFirst & (1 << i)) {*/
+      /*Serial.print("A"); Serial.print(i+1); Serial.print("\t");*/
+    /*}*/
+  /*}*/
+
   if(touched & (1 << 3)){
-    matrix.clear();
-    matrix.drawBitmap(0, 0, smile_bmp, 8, 8, LED_ON);
-    matrix.writeDisplay();
+    /*matrix.clear();*/
+    /*matrix.drawBitmap(0, 0, smile_bmp, 8, 8, LED_ON);*/
+    /*matrix.writeDisplay();*/
 
   } else {
-    matrix.clear();
-    matrix.drawBitmap(0, 0, frown_bmp, 8, 8, LED_ON);
-    matrix.writeDisplay();
+    /*matrix.clear();*/
+    /*matrix.drawBitmap(0, 0, frown_bmp, 8, 8, LED_ON);*/
+    /*matrix.writeDisplay();*/
   }
 
 

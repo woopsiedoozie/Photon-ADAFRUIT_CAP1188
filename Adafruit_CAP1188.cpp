@@ -74,26 +74,43 @@ boolean Adafruit_CAP1188::begin(uint8_t i2caddr) {
   Serial.println(readRegister(CAP1188_REV), HEX);
 
 
+
   if ( (readRegister(CAP1188_PRODID) != 0x50) ||
        (readRegister(CAP1188_MANUID) != 0x5D) ||
        (readRegister(CAP1188_REV) != 0x83)) {
     return false;
   }
   // allow multiple touches
-  writeRegister(CAP1188_MTBLK, 0);
+  writeRegister(CAP1188_MTBLK,0);//
   // Have LEDs follow touches
   writeRegister(CAP1188_LEDLINK, 0xFF);
   // speed up a bit
   writeRegister(CAP1188_STANDBYCFG, 0x30);
+  //
+
+  Serial.print("MultiTouch: 0x");
+  Serial.println(readRegister(CAP1188_MTBLK), HEX);
+  //BIT DECODE for number of samples taken
+  Serial.print("bit decode samples taken: 0x");
+  Serial.println(readRegister(CAP1188_STANDBYCFG), HEX);
   return true;
 }
 
 uint8_t  Adafruit_CAP1188::touched(void) {
-  uint8_t t = readRegister(CAP1188_SENINPUTSTATUS);
+  uint8_t t = readRegister(CAP1188_SENINPUTSTATUS);// we call the input status which will return yes and no values for all th elements
   if (t) {
     writeRegister(CAP1188_MAIN, readRegister(CAP1188_MAIN) & ~CAP1188_MAIN_INT);
   }
   return t;
+}
+
+uint8_t Adafruit_CAP1188::touchedAnalog(byte offset){
+
+  uint8_t t = readRegister(CAP1188_ANALOGID + offset);
+  if (t) {
+    writeRegister(CAP1188_MAIN, readRegister(CAP1188_MAIN) & ~CAP1188_MAIN_INT);
+  }
+  return t;// we make sure we don't the the 8 byte
 }
 
 void Adafruit_CAP1188::LEDpolarity(uint8_t x) {
@@ -149,7 +166,7 @@ uint8_t Adafruit_CAP1188::readRegister(uint8_t reg) {
     Wire.beginTransmission(_i2caddr);
     i2cwrite(reg);
     Wire.endTransmission();
-    Wire.requestFrom(_i2caddr, 1);
+    Wire.requestFrom(_i2caddr, 1);//requests the first value of the given address
     return (i2cread());
   }
 }
