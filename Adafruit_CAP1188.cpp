@@ -73,8 +73,6 @@ boolean Adafruit_CAP1188::begin(uint8_t i2caddr) {
   Serial.print("Revision: 0x");
   Serial.println(readRegister(CAP1188_REV), HEX);
 
-
-
   if ( (readRegister(CAP1188_PRODID) != 0x50) ||
        (readRegister(CAP1188_MANUID) != 0x5D) ||
        (readRegister(CAP1188_REV) != 0x83)) {
@@ -86,13 +84,17 @@ boolean Adafruit_CAP1188::begin(uint8_t i2caddr) {
   writeRegister(CAP1188_LEDLINK, 0xFF);
   // speed up a bit
   writeRegister(CAP1188_STANDBYCFG, 0x30);
-  //
+  // we set the sensitivity
+  writeRegister(CAP1188_SENSITIVITY, 0x7);
 
   Serial.print("MultiTouch: 0x");
   Serial.println(readRegister(CAP1188_MTBLK), HEX);
   //BIT DECODE for number of samples taken
   Serial.print("bit decode samples taken: 0x");
   Serial.println(readRegister(CAP1188_STANDBYCFG), HEX);
+  //Let's read how sensible the sensor is
+  Serial.print("Sensitivity: 0x");
+  Serial.println(readRegister(CAP1188_SENSITIVITY), HEX);
   return true;
 }
 

@@ -38,7 +38,7 @@
 
 //newly added
 #define CAP1188_ANALOGID 0x10// returns analog values
-#define CAP1188_SENSITIVITY 0x42;// controls sensitivity
+#define CAP1188_SENSITIVITY 0x42// controls sensitivity
 
 
 

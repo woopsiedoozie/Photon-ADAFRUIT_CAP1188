@@ -56,8 +56,9 @@ void loop() {
   uint8_t analogFirstModulo = analogFirst % 128;
   Serial.print("Anlog1Modulo = ");
   Serial.println(analogFirstModulo);
-  Serial.print("Analog1 = ");
-  Serial.println(analogFirst);
+  delay(20);
+  /*Serial.print("Analog8Modulo = ");*/
+  /*Serial.println(analogLastModulo);*/
 
 
   for (uint8_t i=0; i<8; i++) {
