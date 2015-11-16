@@ -85,7 +85,7 @@ boolean Adafruit_CAP1188::begin(uint8_t i2caddr) {
   // speed up a bit
   writeRegister(CAP1188_STANDBYCFG, 0x30);
   // we set the sensitivity
-  writeRegister(CAP1188_SENSITIVITY, 0x7);
+  writeRegister(CAP1188_SENSITIVITY,0x1F);
 
   Serial.print("MultiTouch: 0x");
   Serial.println(readRegister(CAP1188_MTBLK), HEX);
@@ -107,13 +107,20 @@ uint8_t  Adafruit_CAP1188::touched(void) {
 }
 
 uint8_t Adafruit_CAP1188::touchedAnalog(byte offset){
-
   uint8_t t = readRegister(CAP1188_ANALOGID + offset);
   if (t) {
     writeRegister(CAP1188_MAIN, readRegister(CAP1188_MAIN) & ~CAP1188_MAIN_INT);
   }
   return t;// we make sure we don't the the 8 byte
 }
+
+void Adafruit_CAP1188::touchedAllAnalog(uint8_t *allValues){
+  byte i;
+  for (i = 0; i < 8; i++){
+    allValues[i] = readRegister(CAP1188_ANALOGID + i);
+  }
+}
+
 
 void Adafruit_CAP1188::LEDpolarity(uint8_t x) {
   writeRegister(CAP1188_LEDPOL, x);

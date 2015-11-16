@@ -46,26 +46,40 @@ void setup() {
 
 void loop() {
 
-  uint8_t touched = cap.touched();
+  /*uint8_t touched = cap.touched();*/
   /*byte offset = 0;*/
-  uint8_t analogFirst = cap.touchedAnalog(0);
-  uint8_t analogLast = cap.touchedAnalog(7);
-  /*Serial.print("1 = ");*/
+  /*int8_t analog1 = cap.touchedAnalog(0);
+
+
+  for (byte i = 0; i < 8; i++){
+    Serial.print(i);Serial.print(" : ");Serial.print(cap.touchedAnalog(i));Serial.print("\t");
+  }
+  Serial.println();
+
   /*Serial.println(analogFirst);*/
-  uint8_t analogLastModulo = analogLast % 128;
-  uint8_t analogFirstModulo = analogFirst % 128;
-  Serial.print("Anlog1Modulo = ");
-  Serial.println(analogFirstModulo);
-  delay(20);
+  /*uint8_t analogLastModulo = analogLast % 128;*/
+  /*uint8_t analogFirstModulo = analogFirst % 128;*/
+  /*Serial.print("Analog = ");
+  Serial.println(analogByte);*/
+  /*Serial.print("Analog 6 : ");
+  Serial.println(analogLast);*/
+
+  uint8_t allValues[8];
+  cap.touchedAllAnalog(allValues);
+  for(uint8_t i=0; i < 8;i++){
+    Serial.print("C"); Serial.print(i); Serial.print(": ");Serial.print(allValues[i]); Serial.print("\t");
+  }
+  Serial.println();
+  /*delay(100);*/
   /*Serial.print("Analog8Modulo = ");*/
   /*Serial.println(analogLastModulo);*/
 
 
-  for (uint8_t i=0; i<8; i++) {
-    if (touched & (1 << i)) {
+  /*for (uint8_t i=0; i<8; i++) {
+    if (touched & (1 << i)) {*/
       /*Serial.print("C"); Serial.print(i+1); Serial.print("\t");*/
-    }
-  }
+    /*}
+  }*/
 
   /*for (uint8_t i =0; i < 8; i++){*/
     /*if(analogFirst & (1 << i)) {*/
@@ -73,16 +87,16 @@ void loop() {
     /*}*/
   /*}*/
 
-  if(touched & (1 << 3)){
+  /*if(touched & (1 << 3)){*/
     /*matrix.clear();*/
     /*matrix.drawBitmap(0, 0, smile_bmp, 8, 8, LED_ON);*/
     /*matrix.writeDisplay();*/
 
-  } else {
+  /*} else {*/
     /*matrix.clear();*/
     /*matrix.drawBitmap(0, 0, frown_bmp, 8, 8, LED_ON);*/
     /*matrix.writeDisplay();*/
-  }
+  /*}*/
 
 
 

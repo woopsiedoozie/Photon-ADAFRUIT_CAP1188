@@ -59,10 +59,13 @@ class Adafruit_CAP1188 {
   void writeRegister(uint8_t reg, uint8_t value);
   uint8_t touched(void);
   uint8_t touchedAnalog(byte offset);
+  void touchedAllAnalog(uint8_t *allValues);
   void LEDpolarity(uint8_t x);
+
 
  private:
   uint8_t spixfer(uint8_t x);
   boolean _i2c;
   int8_t _i2caddr, _resetpin, _cs, _clk, _mosi, _miso;
+
 };
