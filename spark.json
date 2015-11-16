@@ -1,0 +1,7 @@
+{
+    "name": "Adafruit_CAP1188",
+    "version": "0.1.6",
+    "author": "Mauricio Sanchez <design@sanchezmauricio.com>",
+    "license": "LGPL",
+    "description": "Allows the Photon to talk to the CAP1188 Adafruit board through I2C. Analog values functionality implemented as well setting the level of sensitivity"
+}
