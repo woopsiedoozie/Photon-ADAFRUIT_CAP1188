@@ -22,8 +22,6 @@
 // The default I2C address
 #define CAP1188_I2CADDR 0x29
 
-
-
 // Some registers we use
 #define CAP1188_SENINPUTSTATUS 0x3
 #define CAP1188_MTBLK 0x2A
@@ -39,9 +37,6 @@
 //newly added
 #define CAP1188_ANALOGID 0x10// returns analog values
 #define CAP1188_SENSITIVITY 0x42// controls sensitivity
-
-
-
 
 class Adafruit_CAP1188 {
  public:
@@ -59,9 +54,8 @@ class Adafruit_CAP1188 {
   void writeRegister(uint8_t reg, uint8_t value);
   uint8_t touched(void);
   uint8_t touchedAnalog(byte offset);
-  void touchedAllAnalog(uint8_t *allValues);
   void LEDpolarity(uint8_t x);
-
+  void setSensitivity(int sensitivity);
 
  private:
   uint8_t spixfer(uint8_t x);

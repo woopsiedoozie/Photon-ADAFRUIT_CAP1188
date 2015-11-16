@@ -1,149 +1,29 @@
 // This #include statement was automatically added by the Particle IDE.
 #include "Adafruit_CAP1188.h"
 
-// This #include statement was automatically added by the Particle IDE.
-/*#include "adafruit-led-backpack.h"*/
-/*Adafruit_8x8matrix matrix = Adafruit_8x8matrix();*/
+//For SDA in Photon use pin D0
+//For SCK in Photon use pin D1
+// VIN works with both 3.3V and 5V
+
 Adafruit_CAP1188 cap = Adafruit_CAP1188();
 
 void setup() {
+
   Serial.begin(19200);
-
-  /*matrix.begin(0x70);  // pass in the address*/
-
   cap.begin();
+
+  //we set our level of sensitivity
+  //we pass values from 1 to 7
+  cap.setSensitivity(6);
 
 }
 
-/*static const uint8_t
-  smile_bmp[] =
-  { B00111100,
-    B01000010,
-    B10100101,
-    B10000001,
-    B10100101,
-    B10011001,
-    B01000010,
-    B00111100 },
-  neutral_bmp[] =
-  { B00111100,
-    B01000010,
-    B10100101,
-    B10000001,
-    B10111101,
-    B10000001,
-    B01000010,
-    B00111100 },
-  frown_bmp[] =
-  { B00111100,
-    B01000010,
-    B10100101,
-    B10000001,
-    B10011001,
-    B10100101,
-    B01000010,
-    B00111100 };*/
-
 void loop() {
 
-  /*uint8_t touched = cap.touched();*/
-  /*byte offset = 0;*/
-  /*int8_t analog1 = cap.touchedAnalog(0);
-
-
+  //cap.touchedAnalog(1) will call second electrode analog values
   for (byte i = 0; i < 8; i++){
-    Serial.print(i);Serial.print(" : ");Serial.print(cap.touchedAnalog(i));Serial.print("\t");
+    int8_t analogValues = cap.touchedAnalog(i);
+    Serial.print(i);Serial.print(" : ");Serial.print(analogValues);Serial.print("\t");
   }
   Serial.println();
-
-  /*Serial.println(analogFirst);*/
-  /*uint8_t analogLastModulo = analogLast % 128;*/
-  /*uint8_t analogFirstModulo = analogFirst % 128;*/
-  /*Serial.print("Analog = ");
-  Serial.println(analogByte);*/
-  /*Serial.print("Analog 6 : ");
-  Serial.println(analogLast);*/
-
-  uint8_t allValues[8];
-  cap.touchedAllAnalog(allValues);
-  for(uint8_t i=0; i < 8;i++){
-    Serial.print("C"); Serial.print(i); Serial.print(": ");Serial.print(allValues[i]); Serial.print("\t");
-  }
-  Serial.println();
-  /*delay(100);*/
-  /*Serial.print("Analog8Modulo = ");*/
-  /*Serial.println(analogLastModulo);*/
-
-
-  /*for (uint8_t i=0; i<8; i++) {
-    if (touched & (1 << i)) {*/
-      /*Serial.print("C"); Serial.print(i+1); Serial.print("\t");*/
-    /*}
-  }*/
-
-  /*for (uint8_t i =0; i < 8; i++){*/
-    /*if(analogFirst & (1 << i)) {*/
-      /*Serial.print("A"); Serial.print(i+1); Serial.print("\t");*/
-    /*}*/
-  /*}*/
-
-  /*if(touched & (1 << 3)){*/
-    /*matrix.clear();*/
-    /*matrix.drawBitmap(0, 0, smile_bmp, 8, 8, LED_ON);*/
-    /*matrix.writeDisplay();*/
-
-  /*} else {*/
-    /*matrix.clear();*/
-    /*matrix.drawBitmap(0, 0, frown_bmp, 8, 8, LED_ON);*/
-    /*matrix.writeDisplay();*/
-  /*}*/
-
-
-
-  /*matrix.clear();
-  matrix.drawBitmap(0, 0, neutral_bmp, 8, 8, LED_ON);
-  matrix.writeDisplay();
-  delay(500);
-
-  matrix.clear();      // clear display
-  matrix.drawPixel(0, 0, LED_ON);
-  matrix.writeDisplay();  // write the changes we just made to the display
-  delay(500);
-
-  matrix.clear();
-  matrix.drawLine(0,0, 7,7, LED_ON);
-  matrix.writeDisplay();  // write the changes we just made to the display
-  delay(500);
-
-  matrix.clear();
-  matrix.drawRect(0,0, 8,8, LED_ON);
-  matrix.fillRect(2,2, 4,4, LED_ON);
-  matrix.writeDisplay();  // write the changes we just made to the display
-  delay(500);
-
-  matrix.clear();
-  matrix.drawCircle(3,3, 3, LED_ON);
-  matrix.writeDisplay();  // write the changes we just made to the display
-  delay(500);
-
-  matrix.setTextWrap(false);  // we dont want text to wrap so it scrolls nicely
-  matrix.setTextSize(1);
-  matrix.setTextColor(LED_ON);
-  for (int8_t x=7; x>=-36; x--) {
-    matrix.clear();
-    matrix.setCursor(x,0);
-    matrix.print("Hello");
-    matrix.writeDisplay();
-    delay(100);
-  }
-  matrix.setRotation(3);
-  matrix.setTextColor(LED_ON);
-  for (int8_t x=7; x>=-36; x--) {
-    matrix.clear();
-    matrix.setCursor(x,0);
-    matrix.print("World");
-    matrix.writeDisplay();
-    delay(100);
-  }
-  matrix.setRotation(0);*/
 }

@@ -84,18 +84,59 @@ boolean Adafruit_CAP1188::begin(uint8_t i2caddr) {
   writeRegister(CAP1188_LEDLINK, 0xFF);
   // speed up a bit
   writeRegister(CAP1188_STANDBYCFG, 0x30);
+
   // we set the sensitivity
-  writeRegister(CAP1188_SENSITIVITY,0x1F);
+  /*writeRegister(CAP1188_SENSITIVITY, 0x2F);
+  Serial.print("Sensitivity: 0x");
+  Serial.println(readRegister(CAP1188_SENSITIVITY), HEX);*/
 
   Serial.print("MultiTouch: 0x");
   Serial.println(readRegister(CAP1188_MTBLK), HEX);
   //BIT DECODE for number of samples taken
   Serial.print("bit decode samples taken: 0x");
   Serial.println(readRegister(CAP1188_STANDBYCFG), HEX);
+
+  return true;
+}
+
+void Adafruit_CAP1188::setSensitivity(int sensitivity){
+
+  switch (sensitivity) {
+
+    //least sensitive
+    case 1:
+      writeRegister(CAP1188_SENSITIVITY,0x7);
+      break;
+
+    case 2:
+      writeRegister(CAP1188_SENSITIVITY,0x6);
+      break;
+
+    case 3:
+      writeRegister(CAP1188_SENSITIVITY,0x5);
+      break;
+
+    case 4:
+      writeRegister(CAP1188_SENSITIVITY,0x4);
+      break;
+
+    case 5:
+      writeRegister(CAP1188_SENSITIVITY,0x3);
+      break;
+
+    case 6:
+      writeRegister(CAP1188_SENSITIVITY,0x2);
+      break;
+    //most sensitive
+    case 7:
+      writeRegister(CAP1188_SENSITIVITY,0x1);
+      break;
+  }
+
   //Let's read how sensible the sensor is
   Serial.print("Sensitivity: 0x");
   Serial.println(readRegister(CAP1188_SENSITIVITY), HEX);
-  return true;
+
 }
 
 uint8_t  Adafruit_CAP1188::touched(void) {
@@ -113,14 +154,6 @@ uint8_t Adafruit_CAP1188::touchedAnalog(byte offset){
   }
   return t;// we make sure we don't the the 8 byte
 }
-
-void Adafruit_CAP1188::touchedAllAnalog(uint8_t *allValues){
-  byte i;
-  for (i = 0; i < 8; i++){
-    allValues[i] = readRegister(CAP1188_ANALOGID + i);
-  }
-}
-
 
 void Adafruit_CAP1188::LEDpolarity(uint8_t x) {
   writeRegister(CAP1188_LEDPOL, x);
