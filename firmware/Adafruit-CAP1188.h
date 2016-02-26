@@ -15,9 +15,9 @@
  ****************************************************/
 
 //We make sure we load the right header for the Photon
-#ifdef SPARK
- #include "application.h"
-#endif
+//#ifdef SPARK
+#include "application.h"
+//#endif
 
 // The default I2C address
 #define CAP1188_I2CADDR 0x29
