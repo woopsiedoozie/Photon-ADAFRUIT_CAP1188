@@ -15,7 +15,7 @@
   **** THIS LIBRARY ONLY IMPLEMENTS IC2 PROTOCOL ****
  ****************************************************/
 
-#include "Adafruit_CAP1188.h"
+#include "Adafruit-CAP1188.h"
 
 uint8_t mySPCR, SPCRback;
 
